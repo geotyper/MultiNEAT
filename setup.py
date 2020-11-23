@@ -119,9 +119,6 @@ def getExtensions():
                         sources,
                         libraries=libs,
                         extra_compile_args=extra)
-        print(dir(exx))
-        print(exx)
-        print(exx.extra_compile_args)
         extensionsList.append(exx)
     else:
         raise AttributeError('Unknown tool: {}'.format(build_sys))
