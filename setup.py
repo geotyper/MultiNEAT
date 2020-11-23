@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-#from __future__ import print_function
 from setuptools import setup, Extension
 import sys
 import os
@@ -101,20 +100,12 @@ def getExtensions():
                                                    extra_compile_args=extra)],
                                         ))
     elif build_sys == 'boost':
-        is_python_2 = sys.version_info[0] < 3
 
         sources.insert(0, 'src/PythonBindings.cpp')
 
-        if is_windows:
-            if is_python_2:
-                raise RuntimeError("Python prior to version 3 is not supported on Windows due to limits of VC++ compiler version")
-
         libs = ['boost_system', 'boost_serialization']
-        if is_python_2:
-            libs += ['boost_python', "boost_numpy"]
-        else:
-            # with boost 1.67 you need boost_python3x and boost_numpy3x where x is python version 3.x 
-            libs += ['boost_python36', "boost_numpy36"]  # in Ubuntu 14 there is only 'boost_python-py34'
+        # with boost 1.67 you need boost_python3x and boost_numpy3x where x is python version 3.x 
+        libs += ['boost_python36', "boost_numpy36"]  # in Ubuntu 14 there is only 'boost_python-py34'
 
         # for Windows with mingw
         # libraries= ['libboost_python-mgw48-mt-1_58',
