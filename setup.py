@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from setuptools import setup, Extension
+from setuptools import setup, Extension, Command
 import sys
 import os
 import psutil
@@ -39,8 +39,20 @@ also insert this on top of boost/python.hpp :
 
 '''
 
+class InstallCommand(Command):
+    description = "Installs the foo."
+    user_options = [
+        ('foo=', None, 'Specify the foo to bar.'),
+    ]
+    def initialize_options(self):
+        self.foo = None
+    def finalize_options(self):
+        assert self.foo in (None, 'myFoo', 'myFoo2'), 'Invalid foo!'
+    def run(self):
+        install_all_the_things()
 
 def getExtensions():
+
     platform = sys.platform
 
     extensionsList = []
@@ -126,7 +138,6 @@ def getExtensions():
         raise AttributeError('Unknown tool: {}'.format(build_sys))
 
     return extensionsList
-
 
 setup(name='multineat',
       version='0.5', # Update version in conda/meta.yaml as well

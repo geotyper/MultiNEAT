@@ -30,5 +30,5 @@ Example in Linux:
 * then, the usual:
   ```bash
   python3 setup.py build_ext
-  python3 setup.py install
+  sudo python3 setup.py install
   ```
