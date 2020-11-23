@@ -30,7 +30,7 @@ def parallelCCompile(self, sources, output_dir=None, macros=None, include_dirs=N
 
 to build Boost.Python on Windows with mingw
 
-bjam target-os=windows/python=3.4 toolset=gcc variant=debug,release link=static,shared threading=multi runtime-link=shared cxxflags="-include cmath "
+bjam target-os=windows/python=3.4 toolset=gcc variant=debug,release link=static,shared threading=multi runtime-link=shared cxxflags='-include cmath '
 
 
 also insert this on top of boost/python.hpp :
@@ -74,7 +74,7 @@ def getExtensions():
 
     prefix = os.getenv('PREFIX')
     if prefix and len(prefix) > 0:
-        extra += ["-I{}/include".format(prefix)]
+        extra += ['-I{}/include'.format(prefix)]
 
     build_sys = os.getenv('MN_BUILD')
 
@@ -103,9 +103,11 @@ def getExtensions():
 
         sources.insert(0, 'src/PythonBindings.cpp')
 
+        v = sys.version[0] + sys.version[2]
+
         libs = ['boost_system', 'boost_serialization']
         # with boost 1.67 you need boost_python3x and boost_numpy3x where x is python version 3.x 
-        libs += ['boost_python36', "boost_numpy36"]  # in Ubuntu 14 there is only 'boost_python-py34'
+        libs += ['boost_python'+v, 'boost_numpy'+v]  # in Ubuntu 14 there is only 'boost_python-py34'
 
         # for Windows with mingw
         # libraries= ['libboost_python-mgw48-mt-1_58',
