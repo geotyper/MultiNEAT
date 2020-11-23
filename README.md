@@ -29,6 +29,6 @@ Example in Linux:
 
 * then, the usual:
   ```bash
-  python setup.py build_ext
-  python setup.py install
+  python3 setup.py build_ext
+  python3 setup.py install
   ```
