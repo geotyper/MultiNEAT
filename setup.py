@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from setuptools import setup, Extension, Command
+from setuptools import setup, Extension
 import sys
 import os
 import psutil
@@ -39,18 +39,6 @@ also insert this on top of boost/python.hpp :
 
 '''
 
-class InstallCommand(Command):
-    description = "Installs the foo."
-    user_options = [
-        ('foo=', None, 'Specify the foo to bar.'),
-    ]
-    def initialize_options(self):
-        self.foo = None
-    def finalize_options(self):
-        assert self.foo in (None, 'myFoo', 'myFoo2'), 'Invalid foo!'
-    def run(self):
-        install_all_the_things()
-
 def getExtensions():
 
     platform = sys.platform
@@ -88,54 +76,27 @@ def getExtensions():
     if prefix and len(prefix) > 0:
         extra += ['-I{}/include'.format(prefix)]
 
-    build_sys = os.getenv('MN_BUILD')
+    sources.insert(0, 'src/PythonBindings.cpp')
 
-    if build_sys is None:
-        if os.path.exists('_MultiNEAT.cpp'):
-            sources.insert(0, '_MultiNEAT.cpp')
-            extra.append('-O3')
-            extensionsList.extend([Extension('MultiNEAT._MultiNEAT',
-                                             sources,
-                                             extra_compile_args=extra)],
-                                  )
-        else:
-            print('Source file is missing and MN_BUILD environment variable is not set.\n'
-                  'Specify either \'cython\' or \'boost\'. Example to build in Linux with Cython:\n'
-                  '\t$ export MN_BUILD=cython')
-            exit(1)
-    elif build_sys == 'cython':
-        from Cython.Build import cythonize
-        sources.insert(0, '_MultiNEAT.pyx')
-        extra.append('-O3')
-        extensionsList.extend(cythonize([Extension('MultiNEAT._MultiNEAT',
-                                                   sources,
-                                                   extra_compile_args=extra)],
-                                        ))
-    elif build_sys == 'boost':
+    v = sys.version[0] + sys.version[2]
 
-        sources.insert(0, 'src/PythonBindings.cpp')
+    libs = ['boost_system', 'boost_serialization']
+    # with boost 1.67 you need boost_python3x and boost_numpy3x where x is python version 3.x 
+    libs += ['boost_python'+v, 'boost_numpy'+v]  # in Ubuntu 14 there is only 'boost_python-py34'
 
-        v = sys.version[0] + sys.version[2]
-
-        libs = ['boost_system', 'boost_serialization']
-        # with boost 1.67 you need boost_python3x and boost_numpy3x where x is python version 3.x 
-        libs += ['boost_python'+v, 'boost_numpy'+v]  # in Ubuntu 14 there is only 'boost_python-py34'
-
-        # for Windows with mingw
-        # libraries= ['libboost_python-mgw48-mt-1_58',
-        #            'libboost_serialization-mgw48-mt-1_58'],
-        # include_dirs = ['C:/MinGW/include', 'C:/Users/Peter/Desktop/boost_1_58_0'],
-        # library_dirs = ['C:/MinGW/lib', 'C:/Users/Peter/Desktop/boost_1_58_0/stage/lib'],
-        extra.extend(['-DUSE_BOOST_PYTHON', '-DUSE_BOOST_RANDOM', #'-O0',
-                      #'-DVDEBUG',
-                      ])
-        exx = Extension('MultiNEAT._MultiNEAT',
-                        sources,
-                        libraries=libs,
-                        extra_compile_args=extra)
-        extensionsList.append(exx)
-    else:
-        raise AttributeError('Unknown tool: {}'.format(build_sys))
+    # for Windows with mingw
+    # libraries= ['libboost_python-mgw48-mt-1_58',
+    #            'libboost_serialization-mgw48-mt-1_58'],
+    # include_dirs = ['C:/MinGW/include', 'C:/Users/Peter/Desktop/boost_1_58_0'],
+    # library_dirs = ['C:/MinGW/lib', 'C:/Users/Peter/Desktop/boost_1_58_0/stage/lib'],
+    extra.extend(['-DUSE_BOOST_PYTHON', '-DUSE_BOOST_RANDOM', #'-O0',
+                  #'-DVDEBUG',
+                  ])
+    exx = Extension('MultiNEAT._MultiNEAT',
+                    sources,
+                    libraries=libs,
+                    extra_compile_args=extra)
+    extensionsList.append(exx)
 
     return extensionsList
 

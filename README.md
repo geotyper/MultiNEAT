@@ -19,15 +19,12 @@ GNU Lesser General Public License v3.0
 ### Documentation
 [http://multineat.com/docs.html](http://multineat.com/docs.html)
 
+### Requires
+
+[boost](https://www.boost.org/)
+
 #### To compile
 
-* Set the required system (boost or cython) by setting an environment variable with name MN_BUILD.
-Example in Linux:
-  ```bash
-  export MN_BUILD=boost
-  ```
-
-* then, the usual:
   ```bash
   python3 setup.py build_ext
   sudo python3 setup.py install
