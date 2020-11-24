@@ -23,7 +23,7 @@ GNU Lesser General Public License v3.0
 
 [boost](https://www.boost.org/)
 
-#### To compile
+### To compile
 
   ```bash
   python3 setup.py build_ext
