@@ -1,5 +1,5 @@
+#!/usr/bin/env python3
 import gym
-import time
 
 import sys
 
@@ -135,7 +135,7 @@ def main():
     hof = []
     maxf_ever = 0
 
-    env = gym.make('BipedalWalker-v2')
+    env = gym.make('BipedalWalker-v3')
 
     try:
         for generation in range(generations):
