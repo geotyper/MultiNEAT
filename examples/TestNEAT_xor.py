@@ -96,22 +96,23 @@ params.AllowClones = True
 def getbest(i):
 
     g = NEAT.Genome(
-            0, 
-            3, 
-            0, 
-            1, 
-            False, 
+            0,     # id
+            3,     # ninp
+            5,     # nhid
+            1,     # nout
+            False, # fs_neat
             NEAT.ActivationFunction.UNSIGNED_SIGMOID,
             NEAT.ActivationFunction.UNSIGNED_SIGMOID, 
-            0, 
+            0,     # seed_type
             params, 
-            0,
-            1)
+            0,     # num_layers
+            1)     # fs_neat_links
 
     pop = NEAT.Population(g, params, True, 1.0, i)
     pop.RNG.Seed(int(time.perf_counter()*100))
 
     generations = 0
+    fitness_list = []
     for generation in range(1000):
         genome_list = NEAT.GetGenomeList(pop)
         fitness_list = EvaluateGenomeList_Serial(genome_list, evaluate, display=False)
@@ -122,11 +123,13 @@ def getbest(i):
         if best > 15.0:
             break
 
+    print(fitness_list[-1])
+
     return generations
 
 
 gens = []
-for run in range(100):
+for run in range(1):
     gen = getbest(run)
     gens += [gen]
     print('Run:', run, 'Generations to solve XOR:', gen)

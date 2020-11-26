@@ -138,7 +138,9 @@ params.MutateLinkTraitsProb = 0
 params.AllowLoops = False
 
 def getbest(i):
-    g = NEAT.Genome(0,
+
+    g = NEAT.Genome(
+                    0,
                     substrate.GetMinCPPNInputs(),
                     0,
                     substrate.GetMinCPPNOutputs(),
@@ -146,7 +148,9 @@ def getbest(i):
                     NEAT.ActivationFunction.TANH,
                     NEAT.ActivationFunction.TANH,
                     0,
-                    params, 0)
+                    params, 
+                    0,
+                    1)
 
     pop = NEAT.Population(g, params, True, 1.0, i)
     pop.RNG.Seed(i)
@@ -173,7 +177,7 @@ def getbest(i):
 
 
 gens = []
-for run in range(20):
+for run in range(1):
     gen = getbest(run)
     gens += [gen]
     print('Run:', run, 'Generations to solve XOR:', gen)
