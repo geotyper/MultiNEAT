@@ -1,19 +1,9 @@
 #!/usr/bin/python3
-from __future__ import print_function
 
-import os
-import sys
-#sys.path.insert(0, '/home/peter/code/projects/MultiNEAT') # duh
 import time
-import random as rnd
 import numpy as np
-import pickle as pickle
 import MultiNEAT as NEAT
 from MultiNEAT import EvaluateGenomeList_Serial
-from MultiNEAT import GetGenomeList, ZipFitness
-
-from concurrent.futures import ProcessPoolExecutor, as_completed
-
 
 def evaluate(genome):
     net = NEAT.NeuralNetwork()
