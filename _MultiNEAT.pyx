@@ -843,6 +843,7 @@ cdef class Genome:
     cdef bint borrowed
 
     def __cinit__(self, *attribs):
+        exit(0)
         cdef int attribsLen = len(attribs)
         cdef Parameters a_ps
         self.borrowed = False

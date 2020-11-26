@@ -104,8 +104,19 @@ params.AllowLoops = True
 params.AllowClones = True
 
 def getbest(i):
-    g = NEAT.Genome(0, 3, 0, 1, False, NEAT.ActivationFunction.UNSIGNED_SIGMOID,
-                    NEAT.ActivationFunction.UNSIGNED_SIGMOID, 0, params, 0)
+
+    g = NEAT.Genome(
+            0, 
+            3, 
+            0, 
+            1, 
+            False, 
+            NEAT.ActivationFunction.UNSIGNED_SIGMOID,
+            NEAT.ActivationFunction.UNSIGNED_SIGMOID, 
+            0, 
+            params, 
+            0)
+
     pop = NEAT.Population(g, params, True, 1.0, i)
     pop.RNG.Seed(int(time.clock()*100))
 
