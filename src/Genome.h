@@ -195,17 +195,18 @@ namespace NEAT
 
 
         // This creates a standart minimal genome - perceptron-like structure
-        Genome(int a_ID,
-               int a_NumInputs,
-               int a_NumHidden, // ignored for seed_type == 0, specifies number of hidden units if seed_type == 1
-               int a_NumOutputs,
-               bool a_FS_NEAT,
-               ActivationFunction a_OutputActType,
-               ActivationFunction a_HiddenActType,
-               int a_SeedType,
-               const Parameters &a_Parameters,
-               int a_NumLayers,
-               int a_FS_NEAT_links);
+        Genome(
+                int a_ID,
+                int a_NumInputs,
+                int a_NumHidden, // ignored for seed_type == 0, specifies number of hidden units if seed_type == 1
+                int a_NumOutputs,
+                bool a_FS_NEAT,
+                ActivationFunction a_OutputActType,
+                ActivationFunction a_HiddenActType,
+                int a_SeedType,
+                const Parameters &a_Parameters,
+                int a_NumLayers,
+                int a_FS_NEAT_links);
 
         /////////////
         // Other possible constructors for different types of networks go here
@@ -264,7 +265,7 @@ namespace NEAT
         void SetAdjFitness(double a_af);
 
         int GetID() const;
-        
+
         void SetID(int a_id);
 
         unsigned int GetDepth() const;

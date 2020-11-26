@@ -115,10 +115,11 @@ def getbest(i):
             NEAT.ActivationFunction.UNSIGNED_SIGMOID, 
             0, 
             params, 
-            0)
+            0,
+            1)
 
     pop = NEAT.Population(g, params, True, 1.0, i)
-    pop.RNG.Seed(int(time.clock()*100))
+    pop.RNG.Seed(int(time.perf_counter()*100))
 
     generations = 0
     for generation in range(1000):
