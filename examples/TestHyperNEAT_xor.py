@@ -130,17 +130,17 @@ params.AllowLoops = False
 def getbest(i):
 
     g = NEAT.Genome(
-                    0,
+                    0, # id
                     substrate.GetMinCPPNInputs(),
-                    0,
+                    0, # nhid
                     substrate.GetMinCPPNOutputs(),
-                    False,
+                    False, # fs_neat
                     NEAT.ActivationFunction.TANH,
                     NEAT.ActivationFunction.TANH,
-                    0,
+                    0, # seed_type
                     params, 
-                    0,
-                    1)
+                    0, # num_layers
+                    1) # fs_neat_links
 
     pop = NEAT.Population(g, params, True, 1.0, i)
     pop.RNG.Seed(i)
