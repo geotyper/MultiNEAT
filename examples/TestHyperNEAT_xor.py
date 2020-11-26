@@ -39,7 +39,9 @@ except:
 
 
 def evaluate(genome):
+
     net = NEAT.NeuralNetwork()
+
     try:
         genome.BuildHyperNEATPhenotype(net, substrate)
 
@@ -127,7 +129,7 @@ params.MutateLinkTraitsProb = 0
 
 params.AllowLoops = False
 
-def getbest(i):
+def getbest(i, target=15.9):
 
     g = NEAT.Genome(
                     0, # id
@@ -160,7 +162,7 @@ def getbest(i):
         pop.Epoch()
         generations = generation
 
-        if best > 15.0:
+        if best > target:
             break
 
     return generations
